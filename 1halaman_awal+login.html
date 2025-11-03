@@ -1,9 +1,10 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="id">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portal Informasi Kopi Indonesia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root{ --bg:#f7f3ef; --card:#ffffff; --accent:#6b4226; --accent-2:#8b5e3c; --muted:#6b6b6b; --brown1:#3e2723; --brown2:#4e342e; }
     *{box-sizing:border-box}
@@ -24,7 +25,7 @@
     footer{max-width:980px;margin:22px auto;padding:0 16px; color:var(--muted); font-size:13px}
     @media (max-width:520px){ header h1{font-size:16px} }
 
-    /* ===== Tombol Pilihan Jenis Kopi ===== */
+    /* Tombol Pilihan Jenis Kopi */
     .jenis-kopi {
       display: flex;
       gap: 14px;
@@ -56,9 +57,9 @@
       align-items: center;
       justify-content: center;
       gap: 40px;
-      width : 180px;
+      width: 180px;
       height: 300px;
-      padding: 18px 18px;
+      padding: 18px;
       cursor: pointer;
       transition: background 0.3s;
       text-align: center;
@@ -66,9 +67,7 @@
       font-family: "Lora", serif;
     }
 
-    .btn-kopi2:hover {
-      background: var(--brown1);
-    }
+    .btn-kopi2:hover { background: var(--brown1); }
 
     .btn-kopi2 img {
       width: 150px;
@@ -78,8 +77,6 @@
     }
   </style>
 </head>
-<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
-
 <body>
   <header>
     <div class="left">
@@ -96,7 +93,6 @@
       <h2 style="margin:0 0 12px 0">Selamat datang di Portal Informasi</h2>
       <p class="small">Pilih jenis kopi yang ingin Anda jelajahi.</p>
 
-      <!-- ===== Tombol Pilihan Jenis Kopi ===== -->
       <div class="jenis-kopi">
         <button class="btn-kopi2" onclick="window.location.href='biji_mentah.html'">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbBRKI84wG3wYr5-lpFwern2Ew6-MOTnOSXA&s" alt="Biji Mentah" />
@@ -120,12 +116,12 @@
     © 2025 Asosiasi Eksportir dan Industri Kopi Indonesia (AEKI) · Semua hak cipta dilindungi.
   </footer>
 
-  <!-- Modal Template -->
+  <!-- Modal Login -->
   <template id="modalTemplate">
     <div class="overlay" role="dialog" aria-modal="true">
       <div class="modal">
         <h2>Login</h2>
-        <form id="loginForm" action="/login" method="POST">
+        <form id="loginForm">
           <div class="form-row">
             <label class="small">Email atau Username</label>
             <input type="text" name="username" id="loginUser" required placeholder="contoh@domain.com" />
@@ -142,11 +138,9 @@
   </template>
 
   <script>
-    // Modal login
-    document.addEventListener('click', e =>{
-      if(e.target.id === 'btnLoginHeader'){
-        openLoginModal();
-      }
+    // Tampilkan modal login
+    document.addEventListener('click', e => {
+      if (e.target.id === 'btnLoginHeader') openLoginModal();
     });
 
     function openLoginModal(){
@@ -156,27 +150,25 @@
       const overlay = document.querySelector('.overlay');
       const cancel = document.getElementById('loginCancel');
       cancel.addEventListener('click', closeTopModal);
-      overlay.addEventListener('click', (ev) => { if(ev.target === overlay) closeTopModal(); });
+      overlay.addEventListener('click', ev => { if(ev.target === overlay) closeTopModal(); });
       function closeTopModal(){ const ov = document.querySelector('.overlay'); if(ov) ov.remove(); }
     }
 
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape'){
+    // Tutup modal dengan Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
         const ov = document.querySelector('.overlay');
-        if(ov) ov.remove();
+        if (ov) ov.remove();
       }
     });
 
-    // ==== Proses Login ====
-    document.addEventListener('submit', (e) => {
+    // Login sederhana
+    document.addEventListener('submit', e => {
       if (e.target.id === 'loginForm') {
         e.preventDefault();
         const user = document.getElementById('loginUser').value.trim();
         const pass = document.getElementById('loginPass').value.trim();
-        const validUser = "admin";
-        const validPass = "kopi123";
-
-        if (user === validUser && pass === validPass) {
+        if (user === "admin" && pass === "kopi123") {
           const ov = document.querySelector('.overlay');
           if (ov) ov.remove();
           window.location.href = "2dashboard_internal.html";
